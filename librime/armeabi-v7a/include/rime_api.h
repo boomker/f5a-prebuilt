@@ -505,7 +505,6 @@ typedef struct RIME_FLAVORED(rime_api_t) {
                                               size_t index);
 
   Bool (*change_page)(RimeSessionId session_id, Bool backward);
-  void (*end_composition)(RimeSessionId session_id);
 } RIME_FLAVORED(RimeApi);
 
 //! API entry
