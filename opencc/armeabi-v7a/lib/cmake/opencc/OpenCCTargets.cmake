@@ -59,8 +59,9 @@ endif()
 add_library(OpenCC::OpenCC STATIC IMPORTED)
 
 set_target_properties(OpenCC::OpenCC PROPERTIES
+  INTERFACE_COMPILE_DEFINITIONS "Opencc_BUILT_AS_STATIC"
   INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include/opencc"
-  INTERFACE_LINK_LIBRARIES "Marisa::marisa"
+  INTERFACE_LINK_LIBRARIES "Marisa::marisa;dl"
 )
 
 # Load information for each installed configuration.

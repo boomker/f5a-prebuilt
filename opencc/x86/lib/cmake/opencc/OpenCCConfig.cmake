@@ -27,5 +27,7 @@ endmacro()
 include(${CMAKE_CURRENT_LIST_DIR}/OpenCCTargets.cmake)
 
 set_and_check(OPENCC_INCLUDE_DIR ${PACKAGE_PREFIX_DIR}/include/opencc)
+set(OPENCC_PLUGIN_DIR "${PACKAGE_PREFIX_DIR}/lib/opencc/plugins")
+set(OPENCC_SHARE_DIR "${PACKAGE_PREFIX_DIR}/share/opencc")
 
 check_required_components(OpenCC)
