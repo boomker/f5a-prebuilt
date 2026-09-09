@@ -2,6 +2,6 @@
     "cmake": "3.31.6",
     "ndk": " 28.0.13004108",
     "platform": 23,
-    "prebuilder": "d08d45cf83f9b0e63304701e62c337e5aa675ad2",
+    "prebuilder": "43c290bcbcf0c5a338267bce5971bcbb5a57fa22",
     "rust": "1.92.0"
 }
