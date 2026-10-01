@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2023-2025 Ivica Siladic, Bruno Iljazovic, Korina Simicevic
+// Copyright (c) 2023-2026 Ivica Siladic, Bruno Iljazovic, Korina Simicevic
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -8,6 +8,7 @@
 #ifndef BOOST_MQTT5_ENDPOINTS_HPP
 #define BOOST_MQTT5_ENDPOINTS_HPP
 
+#include <boost/mqtt5/detail/internal_types.hpp>
 #include <boost/mqtt5/detail/log_invoke.hpp>
 #include <boost/mqtt5/detail/internal_types.hpp>
 
@@ -141,8 +142,8 @@ template <typename LoggerType>
 class endpoints {
     using logger_type = LoggerType;
 
-    asio::ip::tcp::resolver _resolver;
-    asio::steady_timer& _connect_timer;
+    resolver_type _resolver;
+    timer_type& _connect_timer;
 
     std::vector<authority_path> _servers;
 
@@ -156,7 +157,7 @@ class endpoints {
 public:
     template <typename Executor>
     endpoints(
-        Executor ex, asio::steady_timer& timer,
+        Executor ex, timer_type& timer,
         log_invoke<logger_type>& log
     ) :
         _resolver(std::move(ex)), _connect_timer(timer),

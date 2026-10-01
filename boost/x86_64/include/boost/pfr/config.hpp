@@ -1,4 +1,4 @@
-// Copyright (c) 2016-2025 Antony Polukhin
+// Copyright (c) 2016-2026 Antony Polukhin
 // Copyright (c) 2022 Denis Mikhailov
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -7,6 +7,10 @@
 #ifndef BOOST_PFR_CONFIG_HPP
 #define BOOST_PFR_CONFIG_HPP
 #pragma once
+
+#if defined(BOOST_USE_MODULES)
+#include <compare>
+#endif
 
 #if !defined(BOOST_USE_MODULES) && (__cplusplus >= 201402L || (defined(_MSC_VER) && defined(_MSVC_LANG) && _MSC_VER > 1900))
 #include <type_traits> // to get non standard platform macro definitions (__GLIBCXX__ for example)
@@ -58,6 +62,15 @@
 #define BOOST_PFR_USE_CPP26 1
 #else
 #define BOOST_PFR_USE_CPP26 0
+#endif
+#endif
+
+#ifndef BOOST_PFR_USE_CPP26_REFLECTION
+#ifdef __cpp_lib_reflection
+// TODO: experimental. Not enabled by default for now
+#define BOOST_PFR_USE_CPP26_REFLECTION 0
+#else
+#define BOOST_PFR_USE_CPP26_REFLECTION 0
 #endif
 #endif
 
@@ -118,7 +131,7 @@
          || (defined(__clang_major__) && __clang_major__ >= 12)
 #           define BOOST_PFR_CORE_NAME_ENABLED 1
 #       else
-#           define BOOST_PFR_CORE_NAME_ENABLED 0
+#           define BOOST_PFR_CORE_NAME_ENABLED BOOST_PFR_USE_CPP26_REFLECTION
 #       endif
 #   else
 #       define BOOST_PFR_CORE_NAME_ENABLED 0

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2023-2025 Ivica Siladic, Bruno Iljazovic, Korina Simicevic
+// Copyright (c) 2023-2026 Ivica Siladic, Bruno Iljazovic, Korina Simicevic
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -96,7 +96,7 @@ private:
         auto negotiated_ka = _svc_ptr->negotiated_keep_alive();
         return negotiated_ka ?
             std::chrono::seconds(negotiated_ka) :
-            duration((std::numeric_limits<duration::rep>::max)());
+            (duration::max)();
     }
 
     void complete() {

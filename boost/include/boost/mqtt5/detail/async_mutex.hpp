@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2023-2025 Ivica Siladic, Bruno Iljazovic, Korina Simicevic
+// Copyright (c) 2023-2026 Ivica Siladic, Bruno Iljazovic, Korina Simicevic
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -45,7 +45,7 @@ private:
         Handler _handler;
     public:
         tracked_op(Handler&& h, const Executor& ex) :
-            _executor(tracking_executor(h, ex)), _handler(std::move(h))
+            _executor(boost::mqtt5::detail::tracking_executor(h, ex)), _handler(std::move(h))
         {}
 
         tracked_op(tracked_op&&) = default;
@@ -91,7 +91,7 @@ private:
             if (*_ihandler) {
                 auto h = std::move(*_ihandler);
                 auto ex = asio::get_associated_executor(h);
-                asio::require(ex, asio::execution::blocking.possibly)
+                (asio::require)(ex, asio::execution::blocking.possibly)
                     .execute([h = std::move(h)]() mutable {
                         std::move(h)(asio::error::operation_aborted);
                     });
@@ -160,7 +160,7 @@ public:
             _waiting.pop_front();
             if (!op) continue;
             op.get_cancellation_slot().clear();
-            asio::require(_ex, asio::execution::blocking.never)
+            (asio::require)(_ex, asio::execution::blocking.never)
                 .execute([ex = _ex, op = std::move(op)]() mutable {
                     auto opex = asio::get_associated_executor(op, ex);
                     opex.execute(
@@ -178,7 +178,7 @@ private:
     // The operation is equivalent to asio::post(_ex, op) but
     // for some reason this form of execution is much faster.
     void execute_op(queued_op_t op) {
-        asio::require(_ex, asio::execution::blocking.never)
+        (asio::require)(_ex, asio::execution::blocking.never)
             .execute([ex = _ex, op = std::move(op)]() mutable {
                 auto opex = asio::get_associated_executor(op, ex);
                 opex.execute(

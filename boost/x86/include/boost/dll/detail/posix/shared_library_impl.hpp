@@ -1,5 +1,5 @@
 // Copyright 2014 Renato Tegon Forti, Antony Polukhin.
-// Copyright Antony Polukhin, 2015-2025.
+// Copyright Antony Polukhin, 2015-2026.
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt
@@ -9,27 +9,32 @@
 #define BOOST_DLL_SHARED_LIBRARY_IMPL_HPP
 
 #include <boost/dll/config.hpp>
-#include <boost/dll/shared_library_load_mode.hpp>
-#include <boost/dll/detail/posix/path_from_handle.hpp>
-#include <boost/dll/detail/posix/program_location_impl.hpp>
 
+#ifdef BOOST_HAS_PRAGMA_ONCE
+# pragma once
+#endif
+
+#if !defined(BOOST_DLL_INTERFACE_UNIT)
 #include <boost/core/invoke_swap.hpp>
 #include <boost/predef/os.h>
 
+#if !defined(BOOST_DLL_USE_STD_MODULE)
 #include <utility>  // std::move
+#include <cstring> // strncmp
+#endif // !defined(BOOST_DLL_USE_STD_MODULE)
 
 #include <dlfcn.h>
-#include <cstring> // strncmp
 #if !BOOST_OS_MACOS && !BOOST_OS_IOS && !BOOST_OS_QNX && !BOOST_OS_CYGWIN
 #   include <link.h>
 #elif BOOST_OS_QNX
 // QNX's copy of <elf.h> and <link.h> reside in sys folder
 #   include <sys/link.h>
 #endif
+#endif // !defined(BOOST_DLL_INTERFACE_UNIT)
 
-#ifdef BOOST_HAS_PRAGMA_ONCE
-# pragma once
-#endif
+#include <boost/dll/shared_library_load_mode.hpp>
+#include <boost/dll/detail/posix/path_from_handle.hpp>
+#include <boost/dll/detail/posix/program_location_impl.hpp>
 
 namespace boost { namespace dll { namespace detail {
 

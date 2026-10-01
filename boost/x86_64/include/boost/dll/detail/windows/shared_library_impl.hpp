@@ -1,5 +1,5 @@
 // Copyright 2014 Renato Tegon Forti, Antony Polukhin.
-// Copyright Antony Polukhin, 2015-2025.
+// Copyright Antony Polukhin, 2015-2026.
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt
@@ -9,20 +9,26 @@
 #define BOOST_DLL_SHARED_LIBRARY_IMPL_HPP
 
 #include <boost/dll/config.hpp>
+
 #include <boost/dll/shared_library_load_mode.hpp>
 #include <boost/dll/detail/aggressive_ptr_cast.hpp>
 #include <boost/dll/detail/system_error.hpp>
 #include <boost/dll/detail/windows/path_from_handle.hpp>
 
+#if !defined(BOOST_DLL_INTERFACE_UNIT)
 #include <boost/core/invoke_swap.hpp>
 
 #include <boost/winapi/dll.hpp>
 
+#if !defined(BOOST_DLL_USE_STD_MODULE)
 #include <utility>  // std::move
+#endif // !defined(BOOST_DLL_USE_STD_MODULE)
+#endif // !defined(BOOST_DLL_INTERFACE_UNIT)
 
-#ifdef BOOST_HAS_PRAGMA_ONCE
-# pragma once
-#endif
+#include <boost/dll/shared_library_load_mode.hpp>
+#include <boost/dll/detail/aggressive_ptr_cast.hpp>
+#include <boost/dll/detail/system_error.hpp>
+#include <boost/dll/detail/windows/path_from_handle.hpp>
 
 namespace boost { namespace dll { namespace detail {
 
